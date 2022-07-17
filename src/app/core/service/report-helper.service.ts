@@ -1,10 +1,23 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { ChartBlock } from '../components/bar-chart/bar-chart.component';
 import { Activity } from '../model/activity';
 import { ClassReport, CombinedReports, StudentReport } from '../model/report';
 import { ReportFilter } from '../model/report-filter';
 
 const API_DATE_FORMAT = 'DD/MM/YY';
+
+const SUMMARY_CONFIG = [
+  { color: 'green', name: 'Excellent', func: (v: number) => v > 90 },
+  { color: 'orange', name: 'OK', func: (v: number) => v > 80 && v <= 90 },
+  { color: 'red', name: 'Week', func: (v: number) => v > 60 && v <= 80 },
+  { color: 'gray', name: 'Unassigned', func: (v: number) => v <= 60 },
+];
+
+const getGroup = (value: number): string | undefined =>
+  SUMMARY_CONFIG.find((config) => {
+    return config.func(value);
+  })?.name;
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +52,7 @@ export class ReportHelperService {
   public filterResults(config: {
     classReports: ClassReport[];
     reportFilter: ReportFilter;
-  }): StudentReport[] {
+  }): { reports: StudentReport[]; summary: ChartBlock[] } {
     const { classReports, reportFilter } = config;
 
     const reports: StudentReport[] = [];
@@ -48,9 +61,11 @@ export class ReportHelperService {
       (classReport) => classReport.name === reportFilter.class
     );
 
-    const filteredStudents = filteredClassReport?.students.filter((student) =>
-      reportFilter.students.includes(student.student)
-    );
+    const filteredStudents = !reportFilter.students?.length
+      ? filteredClassReport?.students
+      : filteredClassReport?.students.filter((student) =>
+          reportFilter.students.includes(student.student)
+        );
 
     const matchWithWeeks = (fromDate: string, toDate: string, date: string) => {
       // TODO: FIX: Date filtering
@@ -60,6 +75,13 @@ export class ReportHelperService {
       );
     };
 
+    const summaryMap = new Map<string, ChartBlock>(
+      SUMMARY_CONFIG.map((config) => [
+        config.name,
+        { name: config.name, color: config.color, value: 0 },
+      ])
+    );
+
     filteredStudents?.forEach((student) => {
       student.activities.forEach((activity) => {
         const { content, skill, time, type, attempts } = activity;
@@ -68,13 +90,21 @@ export class ReportHelperService {
           if (
             matchWithWeeks(reportFilter.fromDate, reportFilter.toDate, date)
           ) {
+            const result = respectResults[i];
+            const group = getGroup(result);
+
+            const block = summaryMap.get(group || '');
+            if (block) {
+              block.value++;
+            }
+
             reports.push({
               content,
               skill,
               time,
               type,
               date: date,
-              result: respectResults[i],
+              result: result,
               x: student,
             } as StudentReport);
           }
@@ -82,6 +112,8 @@ export class ReportHelperService {
       });
     });
 
-    return reports;
+    const summary = Array.from(summaryMap.values());
+
+    return { reports, summary };
   }
 }

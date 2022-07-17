@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="bar-container">
+    <div
+      *ngFor="let block of blocks"
+      class="bar"
+      [style.background]="block.color"
+      [style.flex-basis]="block.percentage + '%'"
+    >
+      {{ block.name }}
+    </div>
+  </div>
+</div>

@@ -62,34 +62,50 @@
         />
       </div>
     </div>
+    {{ filter.students | json }}
   </form>
 
-  <div class="row g-4 py-5 row-cols-1 row-cols-lg-1">
-    <div class="col">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Date Completed</th>
-            <th scope="col">Content</th>
-            <th scope="col">Type</th>
-            <th scope="col">Skill</th>
-            <th scope="col">Result</th>
-            <th scope="col">Time Spent</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let rec of studentReports$ | async">
-            <td>{{ rec.date }}</td>
-            <td>{{ rec.content }}</td>
-            <td>{{ rec.type }}</td>
-            <td>{{ rec.skill }}</td>
-            <td>{{ rec.result }}</td>
-            <td>{{ rec.time }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <ng-container *ngIf="studentReports$ | async; let reportX">
+    <app-bar-chart [blocks]="reportX.summary"></app-bar-chart>
+
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-1">
+      <div class="col">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Date Completed</th>
+              <th scope="col">Content</th>
+              <th scope="col">Type</th>
+              <th scope="col">Skill</th>
+              <th scope="col">Result</th>
+              <th scope="col">Time Spent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let rec of reportX.reports">
+              <td>{{ rec.date }}</td>
+              <td>{{ rec.content }}</td>
+              <td>{{ rec.type }}</td>
+              <td>{{ rec.skill }}</td>
+              <td>
+                <strong
+                  [ngClass]="{
+                    'text-green': rec.result > 90,
+                    'text-orange': rec.result > 80 && rec.result <= 90,
+                    'text-red': rec.result > 60 && rec.result <= 80,
+                    'text-gray': rec.result <= 60
+                  }"
+                  class="text-green"
+                  >{{ rec.result }}</strong
+                >
+              </td>
+              <td>{{ rec.time }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+  </ng-container>
 
   <div class="">
     <button type="button" class="btn btn-link" (click)="onLogout()">

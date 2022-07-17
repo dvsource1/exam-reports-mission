@@ -9,9 +9,10 @@ import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ReportComponent } from './report/report.component';
+import { BarChartComponent } from './core/components/bar-chart/bar-chart.component';
 
 @NgModule({
-  declarations: [AppComponent, ReportComponent],
+  declarations: [AppComponent, ReportComponent, BarChartComponent],
   imports: [
     BrowserModule,
     CommonModule,
