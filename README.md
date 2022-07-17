@@ -12,7 +12,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Local Login
 - [x] Router Guard
 - [x] Report Router Resolver
-- [ ] Student Multi Select
+- [x] Student Multi Select
 - [ ] Bar Chart
 - [ ] UI & Responsiveness
 - [ ] Unit Testing

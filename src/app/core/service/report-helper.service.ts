@@ -48,9 +48,8 @@ export class ReportHelperService {
       (classReport) => classReport.name === reportFilter.class
     );
 
-    const filteredStudents = filteredClassReport?.students.filter(
-      (student) => student.student === reportFilter.student
-      // filter.student.includes(student.student)
+    const filteredStudents = filteredClassReport?.students.filter((student) =>
+      reportFilter.students.includes(student.student)
     );
 
     const matchWithWeeks = (fromDate: string, toDate: string, date: string) => {

@@ -24,12 +24,12 @@
       <div class="col">
         <label for="SELECT_STUDENET" class="form-label">Student</label>
         <select
-          name="student"
-          [(ngModel)]="filter.student"
+          name="students"
+          [(ngModel)]="filter.students"
           (ngModelChange)="filter$.next(filter)"
-          id="SELECT_STUDENET"
           class="form-select"
-          aria-label="Default select example"
+          multiple
+          aria-label="multiple select example"
         >
           <option
             [value]="studentOption"

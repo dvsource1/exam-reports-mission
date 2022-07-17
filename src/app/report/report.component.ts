@@ -36,9 +36,8 @@ export class ReportComponent {
     setTimeout(() => {
       filter$.next({
         class: combinedReport.classes[0].name,
-        student:
-          this.classesToStudentsMap.get(combinedReport.classes[0].name)?.[0] ||
-          '',
+        students:
+          this.classesToStudentsMap.get(combinedReport.classes[0].name) || [],
         fromDate: '2000-07-14', // TODO: remove hardcode
         toDate: '2020-07-14', // TODO: remove hardcode
       });

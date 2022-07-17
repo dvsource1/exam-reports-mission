@@ -1,6 +1,6 @@
 export interface ReportFilter {
   class: string;
-  student: string;
+  students: string[];
   fromDate: string;
   toDate: string;
 }
