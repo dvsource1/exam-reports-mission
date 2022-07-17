@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { BarChartComponent } from './core/components/bar-chart/bar-chart.component';
 import { ReportComponent } from './report/report.component';
+import { MomentDatePipe } from './core/pipes/moment-date.pipe';
 
 /**
  * Bootstrap module
@@ -17,7 +18,7 @@ import { ReportComponent } from './report/report.component';
  * @since  2022.07.17
  */
 @NgModule({
-  declarations: [AppComponent, ReportComponent, BarChartComponent],
+  declarations: [AppComponent, ReportComponent, BarChartComponent, MomentDatePipe],
   imports: [
     BrowserModule,
     CommonModule,

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
 import { ChartBlock } from '../components/bar-chart/bar-chart.component';
 import { Activity } from '../model/api/activity';
 import {
@@ -8,9 +7,11 @@ import {
   StudentReport,
 } from '../model/ui/report';
 import { ReportFilter } from '../model/ui/report-filter';
-import { getGroup, SUMMARY_CONFIG } from './report-summry-functions';
-
-const API_DATE_FORMAT = 'DD/MM/YY';
+import {
+  getGroup,
+  matchWithWeeks,
+  SUMMARY_CONFIG,
+} from './report-helper.functions';
 
 /**
  * Responsible helping reposrt view component
@@ -76,14 +77,6 @@ export class ReportHelperService {
           reportFilter.students.includes(student.student)
         );
 
-    const matchWithWeeks = (fromDate: string, toDate: string, date: string) => {
-      // TODO: FIX: Date filtering
-      return (
-        !moment(fromDate, API_DATE_FORMAT).isBefore(date) &&
-        !moment(toDate, API_DATE_FORMAT).isAfter(date)
-      );
-    };
-
     const summaryMap = new Map<string, ChartBlock>(
       SUMMARY_CONFIG.map((config) => [
         config.name,
@@ -96,12 +89,17 @@ export class ReportHelperService {
         const { content, skill, time, type, attempts } = activity;
         const { weeks: datesCompleted, values: respectResults } = attempts;
         datesCompleted.forEach((date, i) => {
-          if (
-            matchWithWeeks(reportFilter.fromDate, reportFilter.toDate, date)
-          ) {
+          const isFilterDatesMatchWithWeeks = matchWithWeeks(
+            reportFilter.fromDate,
+            reportFilter.toDate,
+            date
+          );
+          if (isFilterDatesMatchWithWeeks) {
             const result = respectResults[i];
             const group = getGroup(result);
 
+            // increment block group count
+            // later helps to calculate percentage
             const block = summaryMap.get(group || '');
             if (block) {
               block.value++;

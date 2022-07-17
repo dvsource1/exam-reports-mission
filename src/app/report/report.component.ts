@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { combineLatest, map, Observable, Subject, tap } from 'rxjs';
+import { combineLatest, map, Observable, of, Subject, tap } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { ClassReport, CombinedReports } from '../core/model/ui/report';
 import { ReportFilter } from '../core/model/ui/report-filter';
 import { ReportHelperService } from '../core/service/report-helper.service';
+import { API_DATE_FORMAT, UI_DATE_FORMAT } from '../core/util/constants';
 import { ReportService } from './report.service';
 
 /**
@@ -18,6 +19,9 @@ import { ReportService } from './report.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportComponent {
+  public readonly API_DATE_FORMAT = API_DATE_FORMAT;
+  public readonly UI_DATE_FORMAT = UI_DATE_FORMAT;
+
   /**
    * filter subject
    */
@@ -26,7 +30,7 @@ export class ReportComponent {
   /**
    * local state for classes & students filters
    */
-  classesToStudentsMap: Map<string, string[]> = new Map<string, string[]>();
+  classesToStudentsMap$: Observable<Map<string, string[]>> = new Observable();
 
   constructor(
     private reportService: ReportService,
@@ -44,19 +48,21 @@ export class ReportComponent {
     combinedReport: CombinedReports,
     filter$: Subject<ReportFilter>
   ): void {
-    this.classesToStudentsMap = new Map<string, string[]>();
+    const classesToStudentsMap = new Map<string, string[]>();
     combinedReport.classes.forEach((cls) => {
-      this.classesToStudentsMap.set(cls.name, cls.students);
+      classesToStudentsMap.set(cls.name, cls.students);
     });
+
+    this.classesToStudentsMap$ = of(classesToStudentsMap);
 
     // TODO: investigate on filter$ subject .next()
     setTimeout(() => {
       filter$.next({
         class: combinedReport.classes[0].name,
         students:
-          this.classesToStudentsMap.get(combinedReport.classes[0].name) || [],
-        fromDate: '2000-07-14', // TODO: remove hardcode
-        toDate: '2020-07-14', // TODO: remove hardcode
+          classesToStudentsMap.get(combinedReport.classes[0].name) || [],
+        fromDate: '2018-01-01', // TODO: remove hardcode
+        toDate: '2019-01-01', // TODO: remove hardcode
       });
     });
   }
@@ -78,6 +84,16 @@ export class ReportComponent {
     classReports: this.classReports$,
     reportFilter: this.filter$,
   }).pipe(map(this.reportHelperService.filterResults));
+
+  onClassFilter(
+    filter: ReportFilter,
+    students: string[] | undefined = []
+  ): void {
+    this.filter$.next({
+      ...filter,
+      students,
+    });
+  }
 
   /**
    * trigger auth logout

@@ -3,42 +3,51 @@
 
   <form *ngIf="filter$ | async; let filter">
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-4">
-      <div class="col">
-        <label for="SELECT_CLASS" class="form-label">Class</label>
-        <select
-          name="class"
-          [(ngModel)]="filter.class"
-          (ngModelChange)="filter$.next(filter)"
-          id="SELECT_CLASS"
-          class="form-select"
-          aria-label="Default select example"
-        >
-          <option
-            [value]="classOption"
-            *ngFor="let classOption of classesToStudentsMap.keys()"
+      <ng-container
+        *ngIf="classesToStudentsMap$ | async; let classesToStudentsMap"
+      >
+        <div class="col">
+          <label for="SELECT_CLASS" class="form-label">Class</label>
+          <select
+            name="class"
+            [(ngModel)]="filter.class"
+            (ngModelChange)="
+              onClassFilter(filter, classesToStudentsMap.get(filter.class))
+            "
+            id="SELECT_CLASS"
+            class="form-select"
+            aria-label="Default select example"
           >
-            {{ classOption }}
-          </option>
-        </select>
-      </div>
-      <div class="col">
-        <label for="SELECT_STUDENET" class="form-label">Student</label>
-        <select
-          name="students"
-          [(ngModel)]="filter.students"
-          (ngModelChange)="filter$.next(filter)"
-          class="form-select"
-          multiple
-          aria-label="multiple select example"
-        >
-          <option
-            [value]="studentOption"
-            *ngFor="let studentOption of classesToStudentsMap.get(filter.class)"
+            <option
+              [value]="classOption"
+              *ngFor="let classOption of classesToStudentsMap.keys()"
+            >
+              {{ classOption }}
+            </option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="SELECT_STUDENET" class="form-label">Student</label>
+          <select
+            name="students"
+            [(ngModel)]="filter.students"
+            (ngModelChange)="filter$.next(filter)"
+            class="form-select"
+            multiple
+            aria-label="multiple select example"
           >
-            {{ studentOption }}
-          </option>
-        </select>
-      </div>
+            <option
+              [value]="studentOption"
+              *ngFor="
+                let studentOption of classesToStudentsMap.get(filter.class)
+              "
+            >
+              {{ studentOption }}
+            </option>
+          </select>
+        </div>
+      </ng-container>
+
       <div class="col">
         <label for="SELECT_FROM_DATE" class="form-label">Date Range</label>
         <input
@@ -62,7 +71,6 @@
         />
       </div>
     </div>
-    {{ filter.students | json }}
   </form>
 
   <ng-container *ngIf="studentReports$ | async; let reportX">
@@ -83,7 +91,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let rec of reportX.reports">
-              <td>{{ rec.date }}</td>
+              <td>
+                {{ rec.date | momentDate: API_DATE_FORMAT:UI_DATE_FORMAT }}
+              </td>
               <td>{{ rec.content }}</td>
               <td>{{ rec.type }}</td>
               <td>{{ rec.skill }}</td>

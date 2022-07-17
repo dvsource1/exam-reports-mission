@@ -30,7 +30,7 @@ export class BarChartComponent implements OnChanges {
       this.blocks = this.blocks.map((block) => {
         return {
           ...block,
-          percentage: +((block.value * 100) / sum).toFixed(2),
+          percentage: +((block.value * 100) / sum).toFixed(1),
         };
       });
     }
