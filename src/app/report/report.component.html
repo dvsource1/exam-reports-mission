@@ -1,1 +1,26 @@
 <p>report works!</p>
+
+<ng-container *ngIf="reports$ | async; let reports">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date Completed</th>
+        <th scope="col">Content</th>
+        <th scope="col">Type</th>
+        <th scope="col">Skill</th>
+        <th scope="col">Result</th>
+        <th scope="col">Time Spent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rec of reports[0].students[0].activities">
+        <td>{{ "-date-" }}</td>
+        <td>{{ rec.content }}</td>
+        <td>{{ rec.type }}</td>
+        <td>{{ rec.skill }}</td>
+        <td>{{ "-result-" }}</td>
+        <td>{{ rec.time }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

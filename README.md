@@ -6,8 +6,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 - [x] Initial Setup
 - [x] Project Structure & Routing
-- [ ] API Integration & Services
-- [ ] Data Binding
+- [x] API Integration & Services
+- [~] Data Binding
 - [ ] Filter
 - [ ] UI & Responsiveness
 - [ ] Local Login

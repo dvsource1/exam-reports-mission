@@ -1,17 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import { ReportRoutingModule } from './report-routing.module';
-import { ReportComponent } from './report.component';
-
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
-  declarations: [
-    ReportComponent
-  ],
-  imports: [
-    CommonModule,
-    ReportRoutingModule
-  ]
+  declarations: [],
+  imports: [BrowserModule, CommonModule, ReportRoutingModule],
 })
-export class ReportModule { }
+export class ReportModule {}
