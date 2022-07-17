@@ -5,7 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ### TODO
 
 - [x] Initial Setup
-- [ ] Project Structure & Routing
+- [x] Project Structure & Routing
 - [ ] API Integration & Services
 - [ ] Data Binding
 - [ ] Filter
