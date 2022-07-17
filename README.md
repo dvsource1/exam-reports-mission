@@ -11,7 +11,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Filter
 - [x] Local Login
 - [x] Router Guard
-- [ ] Report Router Resolver
+- [x] Report Router Resolver
 - [ ] Student Multi Select
 - [ ] Bar Chart
 - [ ] UI & Responsiveness

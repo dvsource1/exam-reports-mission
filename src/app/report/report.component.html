@@ -1,7 +1,8 @@
-<p>report works!</p>
-<div class="container">
+<div class="container px-4 py-5" id="featured-3">
+  <h2 class="pb-2 border-bottom">Student Report</h2>
+
   <form *ngIf="filter$ | async; let filter">
-    <div class="row">
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-4">
       <div class="col">
         <label for="SELECT_CLASS" class="form-label">Class</label>
         <select
@@ -61,43 +62,38 @@
         />
       </div>
     </div>
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="filter$.next(filter)"
-    >
-      Primary
-    </button>
   </form>
 
-  <hr />
+  <div class="row g-4 py-5 row-cols-1 row-cols-lg-1">
+    <div class="col">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Date Completed</th>
+            <th scope="col">Content</th>
+            <th scope="col">Type</th>
+            <th scope="col">Skill</th>
+            <th scope="col">Result</th>
+            <th scope="col">Time Spent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rec of studentReports$ | async">
+            <td>{{ rec.date }}</td>
+            <td>{{ rec.content }}</td>
+            <td>{{ rec.type }}</td>
+            <td>{{ rec.skill }}</td>
+            <td>{{ rec.result }}</td>
+            <td>{{ rec.time }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-  <pre>{{ filter$ | async | json }}</pre>
-
-  <hr />
-
-  <ng-container>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Date Completed</th>
-          <th scope="col">Content</th>
-          <th scope="col">Type</th>
-          <th scope="col">Skill</th>
-          <th scope="col">Result</th>
-          <th scope="col">Time Spent</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let rec of studentReports$ | async">
-          <td>{{ rec.date }}</td>
-          <td>{{ rec.content }}</td>
-          <td>{{ rec.type }}</td>
-          <td>{{ rec.skill }}</td>
-          <td>{{ rec.result }}</td>
-          <td>{{ rec.time }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </ng-container>
+  <div class="">
+    <button type="button" class="btn btn-link" (click)="onLogout()">
+      Logout
+    </button>
+  </div>
 </div>

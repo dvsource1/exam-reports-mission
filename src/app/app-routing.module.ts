@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
+import { ReportResolver } from './report/report.resolver';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
   {
     path: 'report',
     canActivate: [AuthGuard],
+    resolve: [ReportResolver],
     loadChildren: () =>
       import('./report/report-routing.module').then(
         (m) => m.ReportRoutingModule

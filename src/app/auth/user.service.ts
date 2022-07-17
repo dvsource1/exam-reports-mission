@@ -6,7 +6,14 @@ import { User } from '../core/model/user';
   providedIn: 'root',
 })
 export class UserService {
-  private USERS: User[] = [];
+  private USERS: User[] = [
+    {
+      email: 'virajkaush@gmail.com',
+      firstName: 'Viraj',
+      lastName: 'Kaushalye',
+      password: `1234`,
+    },
+  ];
 
   constructor() {}
 
