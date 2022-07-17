@@ -9,9 +9,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] API Integration & Services
 - [x] Data Binding
 - [x] Filter
+- [x] Local Login
+- [x] Router Guard
+- [ ] Report Router Resolver
+- [ ] Student Multi Select
+- [ ] Bar Chart
 - [ ] UI & Responsiveness
-- [ ] Local Login
-- [ ] Router Guard
+- [ ] Unit Testing
 - [ ] Documenting
 
 ## Development server

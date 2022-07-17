@@ -1,1 +1,43 @@
-<p>login works!</p>
+<div style="width: 100%">
+  <main class="form-signin w-100 m-auto">
+    <form>
+      <h1 class="h3 mb-3 fw-normal">Login user</h1>
+
+      <div class="form-floating">
+        <input
+          [(ngModel)]="email"
+          name="email"
+          type="email"
+          required
+          class="form-control"
+          id="floatingInput"
+          placeholder="name@example.com"
+        />
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input
+          [(ngModel)]="password"
+          name="password"
+          type="password"
+          required
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Password"
+        />
+        <label for="floatingPassword">Password</label>
+      </div>
+      <button (click)="onLogin()" class="w-100 btn btn-lg btn-primary">
+        Login
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-link"
+        [routerLink]="'/auth/register'"
+      >
+        Register
+      </button>
+    </form>
+  </main>
+</div>

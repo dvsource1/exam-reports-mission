@@ -1,0 +1,58 @@
+<div style="width: 100%">
+  <main class="form-register w-100 m-auto">
+    <form>
+      <h1 class="h3 mb-3 fw-normal">Register a user</h1>
+
+      <div class="form-floating">
+        <input
+          [(ngModel)]="registerUser.firstName"
+          name="firstName"
+          type="text"
+          class="form-control"
+          id="FIRST_NAME"
+          placeholder="john"
+        />
+        <label for="FIRST_NAME">First Name</label>
+      </div>
+      <div class="form-floating">
+        <input
+          [(ngModel)]="registerUser.lastName"
+          name="lastName"
+          type="text"
+          class="form-control"
+          id="LAST_NAME"
+          placeholder="doe"
+        />
+        <label for="LAST_NAME">Last Name</label>
+      </div>
+      <div class="form-floating">
+        <input
+          [(ngModel)]="registerUser.email"
+          name="email"
+          type="email"
+          class="form-control"
+          id="EMAIL"
+          placeholder="name@example.com"
+        />
+        <label for="EMAIL">Email</label>
+      </div>
+      <div class="form-floating">
+        <input
+          [(ngModel)]="registerUser.password"
+          name="password"
+          type="password"
+          class="form-control"
+          id="PASSWORD"
+          placeholder="Password"
+        />
+        <label for="PASSWORD">Password</label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" (click)="onRegister()">
+        Register
+      </button>
+      <button type="button" class="btn btn-link" [routerLink]="'/auth/login'">
+        Login
+      </button>
+    </form>
+  </main>
+</div>
