@@ -1,26 +1,103 @@
 <p>report works!</p>
+<div class="container">
+  <form *ngIf="filter$ | async; let filter">
+    <div class="row">
+      <div class="col">
+        <label for="SELECT_CLASS" class="form-label">Class</label>
+        <select
+          name="class"
+          [(ngModel)]="filter.class"
+          (ngModelChange)="filter$.next(filter)"
+          id="SELECT_CLASS"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option
+            [value]="classOption"
+            *ngFor="let classOption of classesToStudentsMap.keys()"
+          >
+            {{ classOption }}
+          </option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="SELECT_STUDENET" class="form-label">Student</label>
+        <select
+          name="student"
+          [(ngModel)]="filter.student"
+          (ngModelChange)="filter$.next(filter)"
+          id="SELECT_STUDENET"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option
+            [value]="studentOption"
+            *ngFor="let studentOption of classesToStudentsMap.get(filter.class)"
+          >
+            {{ studentOption }}
+          </option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="SELECT_FROM_DATE" class="form-label">Date Range</label>
+        <input
+          name="fromDate"
+          [(ngModel)]="filter.fromDate"
+          (ngModelChange)="filter$.next(filter)"
+          id="SELECT_FROM_DATE"
+          type="date"
+          class="form-control"
+        />
+      </div>
+      <div class="col">
+        <label for="SELECT_TO_DATE" class="form-label">&nbsp;</label>
+        <input
+          name="toDate"
+          [(ngModel)]="filter.toDate"
+          (ngModelChange)="filter$.next(filter)"
+          id="SELECT_TO_DATE"
+          type="date"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="filter$.next(filter)"
+    >
+      Primary
+    </button>
+  </form>
 
-<ng-container *ngIf="reports$ | async; let reports">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Date Completed</th>
-        <th scope="col">Content</th>
-        <th scope="col">Type</th>
-        <th scope="col">Skill</th>
-        <th scope="col">Result</th>
-        <th scope="col">Time Spent</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let rec of reports[0].students[0].activities">
-        <td>{{ "-date-" }}</td>
-        <td>{{ rec.content }}</td>
-        <td>{{ rec.type }}</td>
-        <td>{{ rec.skill }}</td>
-        <td>{{ "-result-" }}</td>
-        <td>{{ rec.time }}</td>
-      </tr>
-    </tbody>
-  </table>
-</ng-container>
+  <hr />
+
+  <pre>{{ filter$ | async | json }}</pre>
+
+  <hr />
+
+  <ng-container>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Date Completed</th>
+          <th scope="col">Content</th>
+          <th scope="col">Type</th>
+          <th scope="col">Skill</th>
+          <th scope="col">Result</th>
+          <th scope="col">Time Spent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rec of studentReports$ | async">
+          <td>{{ rec.date }}</td>
+          <td>{{ rec.content }}</td>
+          <td>{{ rec.type }}</td>
+          <td>{{ rec.skill }}</td>
+          <td>{{ rec.result }}</td>
+          <td>{{ rec.time }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</div>
