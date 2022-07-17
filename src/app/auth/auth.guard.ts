@@ -9,6 +9,10 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
+/**
+ * guard feature routes
+ * based on authentication status
+ */
 @Injectable({
   providedIn: 'root',
 })

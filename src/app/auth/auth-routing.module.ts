@@ -19,6 +19,11 @@ const routes: Routes = [
   },
 ];
 
+/**
+ * Auth routing module
+ * @author <virajkaush@gmail.com>
+ * @since  2022.07.17
+ */
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],

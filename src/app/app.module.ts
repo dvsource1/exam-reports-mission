@@ -8,9 +8,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { ReportComponent } from './report/report.component';
 import { BarChartComponent } from './core/components/bar-chart/bar-chart.component';
+import { ReportComponent } from './report/report.component';
 
+/**
+ * Bootstrap module
+ * @author <virajkaush@gmail.com>
+ * @since  2022.07.17
+ */
 @NgModule({
   declarations: [AppComponent, ReportComponent, BarChartComponent],
   imports: [

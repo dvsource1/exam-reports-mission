@@ -1,5 +1,5 @@
-import { Activity } from './activity';
-import { Class } from './class';
+import { Activity } from '../api/activity';
+import { Class } from '../api/class';
 
 export type CombinedReports = {
   classes: Class[];

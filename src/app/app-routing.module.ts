@@ -30,6 +30,11 @@ const routes: Routes = [
   },
 ];
 
+/**
+ * Root router module
+ * @author <virajkaush@gmail.com>
+ * @since  2022.07.17
+ */
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

@@ -1,30 +1,32 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { ChartBlock } from '../components/bar-chart/bar-chart.component';
-import { Activity } from '../model/activity';
-import { ClassReport, CombinedReports, StudentReport } from '../model/report';
-import { ReportFilter } from '../model/report-filter';
+import { Activity } from '../model/api/activity';
+import {
+  ClassReport,
+  CombinedReports,
+  StudentReport,
+} from '../model/ui/report';
+import { ReportFilter } from '../model/ui/report-filter';
+import { getGroup, SUMMARY_CONFIG } from './report-summry-functions';
 
 const API_DATE_FORMAT = 'DD/MM/YY';
 
-const SUMMARY_CONFIG = [
-  { color: 'green', name: 'Excellent', func: (v: number) => v > 90 },
-  { color: 'orange', name: 'OK', func: (v: number) => v > 80 && v <= 90 },
-  { color: 'red', name: 'Week', func: (v: number) => v > 60 && v <= 80 },
-  { color: 'gray', name: 'Unassigned', func: (v: number) => v <= 60 },
-];
-
-const getGroup = (value: number): string | undefined =>
-  SUMMARY_CONFIG.find((config) => {
-    return config.func(value);
-  })?.name;
-
+/**
+ * Responsible helping reposrt view component
+ * filtering complex data structures
+ * @author <virajkaush@gmail.com>
+ * @since  2022.07.17
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class ReportHelperService {
-  constructor() {}
-
+  /**
+   * map classes, students & activities to same model
+   * @param   {CombinedReports} combinedReport
+   * @returns {ClassReport[]}
+   */
   public mapCombinedReportData = (
     combinedReport: CombinedReports
   ): ClassReport[] => {
@@ -49,6 +51,13 @@ export class ReportHelperService {
     });
   };
 
+  /**
+   * filter class reports by filter criteria
+   * map to student reports
+   * create class report summary => for a bar chart
+   * @param config contains results and filter criteria
+   * @returns {{ reports: StudentReport[]; summary: ChartBlock[] }}
+   */
   public filterResults(config: {
     classReports: ClassReport[];
     reportFilter: ReportFilter;
