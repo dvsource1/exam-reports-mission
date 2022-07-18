@@ -66,10 +66,9 @@ export class AuthService {
    * @param {User} user new user
    * @returns {Promise<User | false>}
    */
-  async register(user: User): Promise<User | false> {
+  async register(user: User): Promise<User | null> {
     // TODO: implement user form validations
-    this.userService.addUser(user);
-    return user;
+    return this.userService.addUser(user);
   }
 
   /**

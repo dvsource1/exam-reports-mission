@@ -11,4 +11,6 @@ export interface User {
   lastName: string;
 }
 
+export type LoginUser = Pick<User, 'email' | 'password'>;
+
 export type UserWithoutPassword = Omit<User, 'password'>;

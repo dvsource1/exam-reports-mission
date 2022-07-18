@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Joi from 'joi';
-import { User } from '../core/model/ui/user';
+import { LoginUser, User } from '../core/model/ui/user';
 
 /**
  * Responsible handing users
@@ -31,8 +31,13 @@ export class UserService {
    * @param   {User} user new user
    * @returns {Promise<void>}
    */
-  public async addUser(user: User): Promise<void> {
-    this.USERS = [...this.USERS, user];
+  public async addUser(user: User): Promise<User | null> {
+    const found = await this.findUser(user.email);
+    if (!found) {
+      this.USERS = [...this.USERS, user];
+      return user;
+    }
+    return null;
   }
 
   /**
@@ -49,15 +54,37 @@ export class UserService {
    * @param   {User} user new user
    * @returns {Promise<User | undefined>} validated user or `undefined`
    */
-  public async validateUser(user: User): Promise<any> {
+  public async validateNewUser(user: User): Promise<any> {
     const schema = Joi.object<User>({
-      password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+      password: Joi.string()
+        .min(4)
+        .max(16)
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+        .required(),
 
       firstName: Joi.string().min(1).max(100).required(),
 
       lastName: Joi.string().min(1).max(100).required(),
 
-      email: Joi.string().email(),
+      email: Joi.string()
+        .email({ tlds: { allow: false } })
+        .required(),
+    });
+
+    return schema.validateAsync(user);
+  }
+
+  public async validateLoginUser(user: LoginUser): Promise<any> {
+    const schema = Joi.object<LoginUser>({
+      password: Joi.string()
+        .min(4)
+        .max(16)
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+        .required(),
+
+      email: Joi.string()
+        .email({ tlds: { allow: false } })
+        .required(),
     });
 
     return schema.validateAsync(user);
