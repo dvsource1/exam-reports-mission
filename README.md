@@ -14,8 +14,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Report Router Resolver
 - [x] Student Multi Select
 - [x] Bar Chart
-- [~] Documenting
-- [~] UI & Responsiveness
+- [x] Documenting
+- [x] UI & Responsiveness
 - [ ] Login & Registration form validations
 - [ ] Unit Testing
 
@@ -29,4 +29,4 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 4. Please make sure to enable a CORS extension in your browser. See `https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en`.
 
-5. Test login virajkaush@gmail.com/1234
+5. Test login "virajkaush@gmail.com/1234"
