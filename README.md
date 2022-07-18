@@ -28,3 +28,5 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 3. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 4. Please make sure to enable a CORS extension in your browser. See `https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en`.
+
+5. Test login virajkaush@gmail.com/1234
