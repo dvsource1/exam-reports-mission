@@ -94,11 +94,4 @@ export class ReportComponent {
       students,
     });
   }
-
-  /**
-   * trigger auth logout
-   */
-  public async onLogout() {
-    this.authService.logout();
-  }
 }

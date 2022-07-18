@@ -1,5 +1,5 @@
 <div class="container px-4 py-5" id="featured-3">
-  <h2 class="pb-2 border-bottom">Student Report</h2>
+  <h2 class="pb-2 border-bottom">Reporting - Student Snapshot</h2>
 
   <form *ngIf="filter$ | async; let filter">
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-4">
@@ -73,8 +73,8 @@
     </div>
   </form>
 
-  <ng-container *ngIf="studentReports$ | async; let reportX">
-    <app-bar-chart [blocks]="reportX.summary"></app-bar-chart>
+  <ng-container *ngIf="studentReports$ | async; let reportsData">
+    <app-bar-chart [blocks]="reportsData.summary"></app-bar-chart>
 
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-1">
       <div class="col">
@@ -90,7 +90,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let rec of reportX.reports">
+            <tr *ngFor="let rec of reportsData.details">
               <td>
                 {{ rec.date | momentDate: API_DATE_FORMAT:UI_DATE_FORMAT }}
               </td>
@@ -106,7 +106,7 @@
                     'text-gray': rec.result <= 60
                   }"
                   class="text-green"
-                  >{{ rec.result }}</strong
+                  >{{ rec.result }}%</strong
                 >
               </td>
               <td>{{ rec.time }}</td>
@@ -116,10 +116,4 @@
       </div>
     </div>
   </ng-container>
-
-  <div class="">
-    <button type="button" class="btn btn-link" (click)="onLogout()">
-      Logout
-    </button>
-  </div>
 </div>

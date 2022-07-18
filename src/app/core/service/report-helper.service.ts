@@ -62,10 +62,10 @@ export class ReportHelperService {
   public filterResults(config: {
     classReports: ClassReport[];
     reportFilter: ReportFilter;
-  }): { reports: StudentReport[]; summary: ChartBlock[] } {
+  }): { details: StudentReport[]; summary: ChartBlock[] } {
     const { classReports, reportFilter } = config;
 
-    const reports: StudentReport[] = [];
+    const details: StudentReport[] = [];
 
     const filteredClassReport = classReports.find(
       (classReport) => classReport.name === reportFilter.class
@@ -105,7 +105,7 @@ export class ReportHelperService {
               block.value++;
             }
 
-            reports.push({
+            details.push({
               content,
               skill,
               time,
@@ -121,6 +121,6 @@ export class ReportHelperService {
 
     const summary = Array.from(summaryMap.values());
 
-    return { reports, summary };
+    return { details, summary };
   }
 }

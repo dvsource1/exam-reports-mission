@@ -5,10 +5,10 @@ import { API_DATE_FORMAT, DATE_PICKER_DATE_FORMAT } from '../util/constants';
  * Class report summary creation config
  */
 export const SUMMARY_CONFIG = [
-  { color: 'gray', name: 'Unassigned', func: (v: number) => v <= 60 },
-  { color: 'red', name: 'Week', func: (v: number) => v > 60 && v <= 80 },
-  { color: 'orange', name: 'OK', func: (v: number) => v > 80 && v <= 90 },
-  { color: 'green', name: 'Excellent', func: (v: number) => v > 90 },
+  { color: '#B2BABB', name: 'Unassigned', func: (v: number) => v <= 60 },
+  { color: '#EC7063', name: 'Week', func: (v: number) => v > 60 && v <= 80 },
+  { color: '#EB984E', name: 'OK', func: (v: number) => v > 80 && v <= 90 },
+  { color: '#58D68D', name: 'Excellent', func: (v: number) => v > 90 },
 ];
 
 /**

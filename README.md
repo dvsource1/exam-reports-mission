@@ -14,9 +14,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Report Router Resolver
 - [x] Student Multi Select
 - [x] Bar Chart
-- [ ] UI & Responsiveness
-- [ ] Unit Testing
+- [x] UI & Responsiveness
 - [x] Documenting
+- [ ] Unit Testing
 
 ## Development server
 
